@@ -1,6 +1,6 @@
-"use client";
+"use client"
+import { useSession, signOut } from "next-auth/react";
 import { ChevronsDown, Github, Menu } from "lucide-react";
-import React from "react";
 import {
   Sheet,
   SheetContent,
@@ -22,6 +22,8 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuContent } from "../ui/dropdown-menu"; // Assuming you have this dropdown component
+import { useState } from "react";
 
 interface RouteProps {
   href: string;
@@ -69,15 +71,20 @@ const featureList: FeatureProps[] = [
   },
 ];
 
+
+
 export const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
         <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
         Shadcn
       </Link>
-      {/* <!-- Mobile --> */}
+
+      {/* Mobile Menu */}
       <div className="flex items-center lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
@@ -118,14 +125,13 @@ export const Navbar = () => {
 
             <SheetFooter className="flex-col sm:flex-col justify-start items-start">
               <Separator className="mb-2" />
-
               <ToggleTheme />
             </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
 
-      {/* <!-- Desktop --> */}
+      {/* Desktop Menu */}
       <NavigationMenu className="hidden lg:block mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -172,22 +178,40 @@ export const Navbar = () => {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex items-center gap-2">
         <ToggleTheme />
-
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
-          <Link
-            aria-label="View on GitHub"
-            href="https://github.com/nobruf/shadcn-landing-page.git"
-            target="_blank"
-          >
-            <Github className="size-5" />
-          </Link>
-        </Button>
-        <div className="flex gap-2">
-          <div>yashagrawal@gmail.com</div>
-          <div className="h-9 w-9 rounded-full bg-black"></div>
-        </div>
+        
+        {/* Conditionally render GitHub logo or User Dropdown */}
+        {!session ? (
+          <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
+            <Link
+              aria-label="View on GitHub"
+              href="https://github.com/nobruf/shadcn-landing-page.git"
+              target="_blank"
+            >
+              <Github className="size-5" />
+            </Link>
+          </Button>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-2 cursor-pointer">
+              <div className="h-9 w-9 rounded-full overflow-hidden">
+                <img
+                  src={session.user?.profielURL || "/boyavatar.jpg"}
+                  alt={session.user?.name || "User"}
+                  className="object-cover"
+                />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <div className="p-2">
+                <p className="font-bold">{session.user?.name}</p>
+                <p className="text-sm">{session.user?.email}</p>
+              </div>
+              <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/sign-in" })}>Sign Out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </header>
   );
