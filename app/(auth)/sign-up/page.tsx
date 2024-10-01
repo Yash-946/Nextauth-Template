@@ -1,6 +1,7 @@
+"use client"
 import Signup from "@/components/layout/auth/signup";
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <Signup />
@@ -8,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

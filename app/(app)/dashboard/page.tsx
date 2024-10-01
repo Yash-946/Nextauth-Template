@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Navbar } from "@/components/layout/navbar";
 
-function compiler() {
+function Dashboard() {
   const { data: session, status } = useSession();
 
-  console.log(session);
+  // console.log(session);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -45,4 +44,4 @@ function compiler() {
   );
 }
 
-export default compiler;
+export default Dashboard;

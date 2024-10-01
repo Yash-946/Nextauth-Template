@@ -22,8 +22,9 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { ToggleTheme } from "./toogle-theme";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuContent } from "../ui/dropdown-menu"; // Assuming you have this dropdown component
+import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuContent } from "../ui/dropdown-menu";
 import { useState } from "react";
+
 
 interface RouteProps {
   href: string;
@@ -196,10 +197,12 @@ export const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2 cursor-pointer">
               <div className="h-9 w-9 rounded-full overflow-hidden">
-                <img
+                <Image
                   src={session.user?.profielURL || "/boyavatar.jpg"}
                   alt={session.user?.name || "User"}
                   className="object-cover"
+                  width={1000}
+                  height={1000}
                 />
               </div>
             </DropdownMenuTrigger>
