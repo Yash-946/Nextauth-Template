@@ -61,19 +61,17 @@ const Signin = () => {
   const error = searchParams.get('error');
 
 
-  // useEffect(() => {
-    
-  //   console.log(error);
-  //   if (error) {
-  //     console.log("2");
-  //     toast.error(`${error}`);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        toast.error(`${error}`);
+      }, 600);
 
-  if (error) {
-    console.log("2");
-    toast.error(`${error}`);
-  }
+      // Cleanup to avoid memory leaks
+      return () => clearTimeout(timer);
+    }
+  }, [error])
+
 
   const {
     register,
@@ -141,7 +139,7 @@ const Signin = () => {
                       type="text"
                       required
                       className="w-full pl-10 pr-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
-                      placeholder="Email or Username"
+                      placeholder="Email"
                       {...register("email", { required: true })}
                     />
                   </div>
