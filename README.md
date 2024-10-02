@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/22709602-1e64-4658-b342-432b57c556dc
    npx prisma generate
    ```
 4. You can change the ```NEXTAUTH_SECRET``` as per your need
-5. For ```RESEND_API_KEY``` make sure you have a domain and it is verify by [Resend](https://resend.com/home) , only than you can send emails to other than you.
+5. For ```RESEND_API_KEY``` make sure you have a domain and it is verify by [Resend](https://resend.com/home) , only than you can send emails to anyone.
    ![image](https://github.com/user-attachments/assets/a43eb128-b665-4fa8-aef9-6508a7e5d751)
 6. For setting up Google and Github secrets here is the demo 👇. [Doc](https://next-auth.js.org/providers/google)
 
