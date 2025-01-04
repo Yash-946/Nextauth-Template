@@ -13,7 +13,7 @@ https://github.com/user-attachments/assets/22709602-1e64-4658-b342-432b57c556dc
 - **Next.js** 
 - **PostgreSQL** Database
 - **NextAuth.js**
-- **Resend** for sending email verification links
+- **Resend** for sending email verification code
 - **Prisma** ORM for PostgreSQL
 - Basic understanding of OAuth providers like Google and Github
 
