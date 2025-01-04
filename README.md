@@ -26,7 +26,7 @@ https://github.com/user-attachments/assets/22709602-1e64-4658-b342-432b57c556dc
     npm i
     ```
 
-2. Setup the Environment variables, copy .emv.example to .env
+2. Setup the Environment variables, copy .env.example to .env
     ```
     DATABASE_URL=""
     NEXTAUTH_SECRET=""
